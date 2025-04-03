@@ -15,9 +15,7 @@ export default function ContactForm() {
   const form = useSelector((state) => state.contacts.items);
 
   const handleSubmit = (values, actions) => {
-    dispatch(
-      addContact(values)
-    );
+    dispatch(addContact(values));
     actions.resetForm();
   };
 
@@ -26,7 +24,7 @@ export default function ContactForm() {
       .min(3, "Too Short!")
       .max(50, "Too Long!")
       .required("Required input field"),
-    number: Yuo.string()
+    number: Yup.string()
       .matches(
         /^[+\d]?[0-9\s\-()]{3,50}$/,
         "Number must be between 3 and 50 digits"
@@ -42,35 +40,29 @@ export default function ContactForm() {
       validationSchema={validationSchema}
     >
       <Form className={css.form}>
-        <label className={css.label} htmlFor="name">
+        <label className={css.formLabel} htmlFor="name">
           Name
         </label>
         <Field
           className={css.field}
+          id="name"
           autoComplete="on"
           type="text"
           name="name"
         />
-        <ErrorMessage
-          className={css.errorMessage}
-          name="name"
-          component="span"
-        />
-        <label className={css.label} htmlFor="number">
+        <ErrorMessage className={css.error} name="name" component="span" />
+        <label className={css.formLabel} htmlFor="number">
           Number
         </label>
         <Field
           className={css.field}
+          id="number"
           autoComplete="on"
           type="text"
           name="number"
         />
-        <ErrorMessage
-          className={css.errorMessage}
-          name="number"
-          component="span"
-        />
-        <button className={css.btnFormik} type="submit">
+        <ErrorMessage className={css.error} name="number" component="span" />
+        <button className={css.buttonFormik} type="submit">
           Add contacts
         </button>
       </Form>

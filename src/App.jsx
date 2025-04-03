@@ -3,15 +3,22 @@ import "./App.css";
 import ContactForm from "./components/ContactForm/ContactForm";
 import ContactList from "./components/ContactList/ContactList";
 import SearchBox from "./components/SearchBox/SearchBox";
+import Loader from "./components/Loader/Loader";
+import { ErrorMessage } from "formik";
 import { useEffect } from "react";
 import { fetchContacts } from "./redux/contactsOps";
+import {
+  selectContacts,
+  selectError,
+  selectLoading,
+} from "./redux/contactsSlice";
 
 function App() {
   const dispatch = useDispatch();
 
-  const items = useSelector((state) => state.contacts.items);
-  const loading = useSelector((state) => state.contacts.loading);
-  const error = useSelector((state) => state.contacts.error);
+  const items = useSelector(selectContacts);
+  const loading = useSelector(selectLoading);
+  const error = useSelector(selectError);
 
   useEffect(() => {
     dispatch(fetchContacts());
@@ -19,9 +26,8 @@ function App() {
   return (
     <div>
       <h1>Phonebook</h1>
-      {loading && <Loader/>}
-      {error && <ErrorMessage/>}
-      {/* <p>{items.length > 0 && JSON.stringify(items, null, 2)}</p> */}
+      {loading && <Loader />}
+      {error && <ErrorMessage />}
       <ContactForm />
       <SearchBox />
       {items.length > 0 && <ContactList />}
