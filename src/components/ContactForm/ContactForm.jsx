@@ -58,7 +58,7 @@ export default function ContactForm() {
           className={css.field}
           id="number"
           autoComplete="on"
-          type="text"
+          type="tel"
           name="number"
         />
         <ErrorMessage className={css.error} name="number" component="span" />
